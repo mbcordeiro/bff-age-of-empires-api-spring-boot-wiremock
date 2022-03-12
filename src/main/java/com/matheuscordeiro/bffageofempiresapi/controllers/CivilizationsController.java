@@ -1,5 +1,6 @@
 package com.matheuscordeiro.bffageofempiresapi.controllers;
 
+import com.matheuscordeiro.bffageofempiresapi.dtos.response.CivilizationResponse;
 import com.matheuscordeiro.bffageofempiresapi.services.interfaces.CivilizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public class CivilizationsController {
     private final CivilizationService civilizationService;
 
     @GetMapping
-    public ResponseEntity<?> getCivilizations() {
+    public ResponseEntity<CivilizationResponse> getCivilizations() {
         return ResponseEntity.ok().body(civilizationService.getCivilizations());
     }
 }
