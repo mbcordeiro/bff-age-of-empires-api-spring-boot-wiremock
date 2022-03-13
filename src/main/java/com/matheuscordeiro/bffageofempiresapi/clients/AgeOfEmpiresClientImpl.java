@@ -4,6 +4,7 @@ import com.matheuscordeiro.bffageofempiresapi.clients.interfaces.AgeOfEmpiresCli
 import com.matheuscordeiro.bffageofempiresapi.clients.response.CivilizationClientResponse;
 
 public class AgeOfEmpiresClientImpl implements AgeOfEmpiresClient {
+    private final MarvelApi marvelApi;
     @Override
     public CivilizationClientResponse findCivilizations() {
         return null;
