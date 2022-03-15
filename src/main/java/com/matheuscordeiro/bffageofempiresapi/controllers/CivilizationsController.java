@@ -16,7 +16,7 @@ import java.util.List;
 public class CivilizationsController {
     private final CivilizationService civilizationService;
 
-    @GetMapping
+    @GetMapping("/civilizations")
     public ResponseEntity<List<CivilizationResponse>> getCivilizations() {
         return ResponseEntity.ok().body(civilizationService.getCivilizations());
     }
