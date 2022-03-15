@@ -6,14 +6,19 @@ import com.matheuscordeiro.bffageofempiresapi.services.interfaces.CivilizationSe
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CivilizationServiceImpl implements CivilizationService {
     private final AgeOfEmpiresClient client;
 
     @Override
-    public CivilizationResponse getCivilizations() {
-        client.findCivilizations();
-        return CivilizationResponse.builder().build();
+    public List<CivilizationResponse> getCivilizations() {
+        final var listCivilizations = client.findCivilizations();
+        if (listCivilizations.isEmpty()) return Collections.EMPTY_LIST;
+
+        return null;
     }
 }
