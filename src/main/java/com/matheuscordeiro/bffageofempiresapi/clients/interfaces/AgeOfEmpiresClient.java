@@ -1,9 +1,7 @@
 package com.matheuscordeiro.bffageofempiresapi.clients.interfaces;
 
-import com.matheuscordeiro.bffageofempiresapi.clients.response.CivilizationClientResponse;
-
-import java.util.List;
+import com.matheuscordeiro.bffageofempiresapi.clients.response.CivilizationClientResponseList;
 
 public interface AgeOfEmpiresClient {
-    List<CivilizationClientResponse> findCivilizations();
+    CivilizationClientResponseList findCivilizations();
 }

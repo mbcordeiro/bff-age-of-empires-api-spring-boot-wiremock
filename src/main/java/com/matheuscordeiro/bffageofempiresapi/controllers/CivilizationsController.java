@@ -1,5 +1,7 @@
 package com.matheuscordeiro.bffageofempiresapi.controllers;
 
+import com.matheuscordeiro.bffageofempiresapi.clients.response.CivilizationClientResponse;
+import com.matheuscordeiro.bffageofempiresapi.clients.response.CivilizationClientResponseList;
 import com.matheuscordeiro.bffageofempiresapi.dtos.response.CivilizationResponse;
 import com.matheuscordeiro.bffageofempiresapi.services.interfaces.CivilizationService;
 import lombok.RequiredArgsConstructor;

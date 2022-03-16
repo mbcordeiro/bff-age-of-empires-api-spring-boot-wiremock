@@ -6,7 +6,6 @@ import com.matheuscordeiro.bffageofempiresapi.services.interfaces.CivilizationSe
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,9 +17,7 @@ public class CivilizationServiceImpl implements CivilizationService {
     @Override
     public List<CivilizationResponse> getCivilizations() {
         try {
-            final var listCivilizations = client.findCivilizations();
-            if (listCivilizations.isEmpty()) return Collections.EMPTY_LIST;
-            return listCivilizations.stream().map(civilization ->
+            return client.findCivilizations().getCivilizations().stream().map(civilization ->
                     CivilizationResponse
                             .builder()
                             .id(civilization.getId())
@@ -30,7 +27,7 @@ public class CivilizationServiceImpl implements CivilizationService {
                             .build()
             ).collect(Collectors.toList());
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Civilizations not found!");
         }
     }
 }
