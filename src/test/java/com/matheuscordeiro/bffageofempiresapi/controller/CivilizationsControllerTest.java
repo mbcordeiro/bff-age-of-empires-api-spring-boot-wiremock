@@ -4,7 +4,9 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.matheuscordeiro.bffageofempiresapi.BffAgeOfEmpiresApiApplication;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -19,6 +21,9 @@ public class CivilizationsControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @Value("classpath:json/listCivilizations_OK.json")
+    private Resource listCivilizationsOK;
 
     @BeforeEach
     public void setup() throws Exception {
