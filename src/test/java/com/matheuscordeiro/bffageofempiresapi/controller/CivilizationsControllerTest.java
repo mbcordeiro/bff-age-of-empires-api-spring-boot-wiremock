@@ -38,6 +38,9 @@ public class CivilizationsControllerTest {
     @Value("classpath:json/listCivilizations_OK.json")
     private Resource listCivilizationsOK;
 
+    @Value("classpath:json/listCivilizations_NOT_FOUND.json")
+    private Resource listCivilizationsNotFound;
+
     @Value("${client.url}")
     private String baseUrlClient;
 
@@ -77,6 +80,12 @@ public class CivilizationsControllerTest {
     @Order(2)
     @DisplayName("2 - Civilização não encontrado")
     public void testNotFoundCharacter() throws Exception {
+        WireMock.stubFor(WireMock.get(baseUrlClient + "/civilization")
+                .willReturn(WireMock.aResponse().withStatus(404)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(ResourceUtils.getContentFile(listCivilizationsNotFound))));
 
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/civilization"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 }
