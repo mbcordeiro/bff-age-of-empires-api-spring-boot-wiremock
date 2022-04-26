@@ -53,6 +53,8 @@ public class AgeOfEmpiresClientTest {
         assertThat(civilizations.getCivilizations().get(0).getName(), equalTo("Aztecs"));
         assertThat(civilizations.getCivilizations().get(0).getArmyType(), equalTo("Infantry and Monk"));
         assertThat(civilizations.getCivilizations().get(0).getTeamBonus(), equalTo("Relics generate +33% gold"));
-        assertThat(civilizations.getCivilizations().get(0).getTeamBonus(), equalTo("Relics generate +33% gold"));
+        assertThat(civilizations.getCivilizations().get(0).getUniqueUnit().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/unit/jaguar_warrior"));
+        assertThat(civilizations.getCivilizations().get(0).getUniqueTech().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/technology/garland_wars"));
+        assertThat(civilizations.getCivilizations().get(0).getCivilizationBonus().get(0), equalTo("Villagers carry +5"));
     }
 }
