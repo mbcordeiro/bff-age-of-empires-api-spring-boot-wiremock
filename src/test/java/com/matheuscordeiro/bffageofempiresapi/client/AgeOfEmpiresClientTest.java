@@ -30,6 +30,9 @@ public class AgeOfEmpiresClientTest {
     @Value("classpath:json/listCivilizations_NOT_FOUND.json")
     private Resource listCivilizationsNotFound;
 
+    @Value("classpath:json/civilization_OK.json")
+    private Resource civilizationOK;
+
     @Value("${client.url}")
     private String baseUrlClient;
 
@@ -39,7 +42,7 @@ public class AgeOfEmpiresClientTest {
     @Test
     @Order(1)
     @DisplayName("Obtendo lista de civilization")
-    public void testGetCivilizationOk() {
+    public void testGetCivilizationsOk() {
         WireMock.stubFor(WireMock
                 .get(baseUrlClient + "/civilizations")
                 .willReturn(WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
@@ -56,5 +59,25 @@ public class AgeOfEmpiresClientTest {
         assertThat(civilizations.getCivilizations().get(0).getUniqueUnit().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/unit/jaguar_warrior"));
         assertThat(civilizations.getCivilizations().get(0).getUniqueTech().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/technology/garland_wars"));
         assertThat(civilizations.getCivilizations().get(0).getCivilizationBonus().get(0), equalTo("Villagers carry +5"));
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("Obtendo civilization")
+    public void testGetCivilizationOk() {
+        WireMock.stubFor(WireMock
+                .get(baseUrlClient + "/civilization/1")
+                .willReturn(WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+                        .withBody(ResourceUtils.getContentFile(civilizationOK))));
+
+        final var civilizations = ageOfEmpiresClient.findCivilizationById(1L);
+
+        assertThat(civilizations.getId(), equalTo(1L));
+        assertThat(civilizations.getName(), equalTo("Aztecs"));
+        assertThat(civilizations.getArmyType(), equalTo("Infantry and Monk"));
+        assertThat(civilizations.getTeamBonus(), equalTo("Relics generate +33% gold"));
+        assertThat(civilizations.getUniqueUnit().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/unit/jaguar_warrior"));
+        assertThat(civilizations.getUniqueTech().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/technology/garland_wars"));
+        assertThat(civilizations.getCivilizationBonus().get(0), equalTo("Villagers carry +5"));
     }
 }

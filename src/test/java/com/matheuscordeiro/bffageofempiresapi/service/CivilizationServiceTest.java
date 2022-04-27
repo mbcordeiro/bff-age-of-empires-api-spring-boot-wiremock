@@ -68,5 +68,4 @@ public class CivilizationServiceTest {
         assertThat(result.getArmyType(), equalTo("Infantry and Monk"));
         assertThat(result.getTeamBonus(), equalTo("Relics generate +33% gold"));
     }
-
 }
