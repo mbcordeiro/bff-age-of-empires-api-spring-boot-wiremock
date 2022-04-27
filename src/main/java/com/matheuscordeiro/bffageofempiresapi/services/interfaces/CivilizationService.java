@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CivilizationService {
     List<CivilizationResponse> getCivilizations();
+
+    CivilizationResponse getCivilizationById(Long id);
 }

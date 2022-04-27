@@ -17,16 +17,21 @@ public class CivilizationServiceImpl implements CivilizationService {
 
     @Override
     public List<CivilizationResponse> getCivilizations() {
+        return client.findCivilizations().getCivilizations().stream().map(civilization ->
+                CivilizationResponse
+                        .builder()
+                        .id(civilization.getId())
+                        .name(civilization.getName())
+                        .armyType(civilization.getArmyType())
+                        .teamBonus(civilization.getTeamBonus())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public CivilizationResponse getCivilizationById(Long id) {
         try {
-            return client.findCivilizations().getCivilizations().stream().map(civilization ->
-                    CivilizationResponse
-                            .builder()
-                            .id(civilization.getId())
-                            .name(civilization.getName())
-                            .armyType(civilization.getArmyType())
-                            .teamBonus(civilization.getTeamBonus())
-                            .build()
-            ).collect(Collectors.toList());
+            return new CivilizationResponse();
         } catch (Exception e) {
             throw new NotFoundException("Civilizations not found!");
         }

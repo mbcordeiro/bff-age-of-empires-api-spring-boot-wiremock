@@ -25,7 +25,7 @@ public class CivilizationsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getCivilizationById(@PathVariable final Long id) {
-        return ResponseEntity.ok().body("Romans");
+    public ResponseEntity<CivilizationResponse> getCivilizationById(@PathVariable final Long id) {
+        return ResponseEntity.ok().body(civilizationService.getCivilizationById(id));
     }
 }
