@@ -38,8 +38,8 @@ public class AgeOfEmpiresClientTest {
 
     @Test
     @Order(1)
-    @DisplayName("1 - Obtendo um personagem através do nome")
-    public void testGetCharacter_200() {
+    @DisplayName("Obtendo lista de civilization")
+    public void testGetCivilizationOk() {
         WireMock.stubFor(WireMock
                 .get(baseUrlClient + "/civilizations")
                 .willReturn(WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
