@@ -5,6 +5,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.matheuscordeiro.bffageofempiresapi.BffAgeOfEmpiresApiApplication;
 import com.matheuscordeiro.bffageofempiresapi.clients.interfaces.AgeOfEmpiresClient;
 import com.matheuscordeiro.bffageofempiresapi.clients.utils.ResourceUtils;
+import feign.FeignException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import org.springframework.test.context.TestPropertySource;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @WireMockTest(httpPort = 8081)
 @SpringBootTest(classes = BffAgeOfEmpiresApiApplication.class)
@@ -79,5 +81,19 @@ public class AgeOfEmpiresClientTest {
         assertThat(civilizations.getUniqueUnit().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/unit/jaguar_warrior"));
         assertThat(civilizations.getUniqueTech().get(0), equalTo("https://age-of-empires-2-api.herokuapp.com/api/v1/technology/garland_wars"));
         assertThat(civilizations.getCivilizationBonus().get(0), equalTo("Villagers carry +5"));
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("Retornando um erro Not Found do Client da API")
+    public void testGetCivilizationNotFound() {
+        WireMock.stubFor(WireMock
+                .get(baseUrlClient + "/civilization/1")
+                .willReturn(WireMock.aResponse().withStatus(404).withHeader("Content-Type", "application/json")
+                        .withBody(ResourceUtils.getContentFile(listCivilizationsNotFound))));
+
+        assertThrows(FeignException.NotFound.class, () -> {
+            ageOfEmpiresClient.findCivilizationById(33L);
+        });
     }
 }
