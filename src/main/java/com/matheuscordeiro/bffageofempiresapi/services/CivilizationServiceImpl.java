@@ -31,7 +31,14 @@ public class CivilizationServiceImpl implements CivilizationService {
     @Override
     public CivilizationResponse getCivilizationById(Long id) {
         try {
-            return new CivilizationResponse();
+            final var civilization = client.findCivilizationById(id);
+            return CivilizationResponse
+                    .builder()
+                    .id(civilization.getId())
+                    .name(civilization.getName())
+                    .armyType(civilization.getArmyType())
+                    .teamBonus(civilization.getTeamBonus())
+                    .build();
         } catch (Exception e) {
             throw new NotFoundException("Civilizations not found!");
         }
