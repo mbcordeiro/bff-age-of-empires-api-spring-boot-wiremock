@@ -41,6 +41,9 @@ public class CivilizationsControllerTest {
     @Value("classpath:json/listCivilizations_NOT_FOUND.json")
     private Resource listCivilizationsNotFound;
 
+    @Value("classpath:json/civilization_OK.json")
+    private Resource civilizationOK;
+
     @Value("${client.url}")
     private String baseUrlClient;
 
@@ -54,8 +57,8 @@ public class CivilizationsControllerTest {
 
     @Test
     @Order(1)
-    @DisplayName("1 - Efetuando a busca de uma civilização de acordo com o critério de pesquisa")
-    public void testFindCharacters() throws Exception {
+    @DisplayName("Efetuando a busca de uma civilização de acordo com o critério de pesquisa")
+    public void testFindCivilizations() throws Exception {
         WireMock.stubFor(WireMock.get(baseUrlClient + "/civilizations")
                 .willReturn(WireMock.aResponse().withStatus(200)
                         .withHeader("Content-Type", "application/json")
@@ -78,8 +81,8 @@ public class CivilizationsControllerTest {
 
     @Test
     @Order(2)
-    @DisplayName("2 - Civilização não encontrado")
-    public void testNotFoundCharacter() throws Exception {
+    @DisplayName("Civilização não encontrado")
+    public void testNotFoundFindCivilizations() throws Exception {
         WireMock.stubFor(WireMock.get(baseUrlClient + "/civilization")
                 .willReturn(WireMock.aResponse().withStatus(404)
                         .withHeader("Content-Type", "application/json")
@@ -87,5 +90,27 @@ public class CivilizationsControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/civilization"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("Efetuando a busca de uma civilização por id")
+    public void testFindCivilizationById() throws Exception {
+        WireMock.stubFor(WireMock.get(baseUrlClient + "/civilization/1")
+                .willReturn(WireMock.aResponse().withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(ResourceUtils.getContentFile(civilizationOK))));
+
+        final var mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        final var result = mapper.readValue(mvcResult.getResponse().getContentAsString(),
+                new TypeReference<CivilizationResponse>() {});
+
+        assertThat(result.getId(), equalTo(1L));
+        assertThat(result.getName(), equalTo("Aztecs"));
+        assertThat(result.getArmyType(), equalTo("Infantry and Monk"));
+        assertThat(result.getTeamBonus(), equalTo("Relics generate +33% gold"));
     }
 }
