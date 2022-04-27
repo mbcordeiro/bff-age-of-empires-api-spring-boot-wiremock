@@ -40,7 +40,7 @@ public class CivilizationServiceImpl implements CivilizationService {
                     .teamBonus(civilization.getTeamBonus())
                     .build();
         } catch (Exception e) {
-            throw new NotFoundException("Civilizations not found!");
+            throw new NotFoundException("Civilization not found!");
         }
     }
 }
