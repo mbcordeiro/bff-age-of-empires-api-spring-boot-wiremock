@@ -113,4 +113,16 @@ public class CivilizationsControllerTest {
         assertThat(result.getArmyType(), equalTo("Infantry and Monk"));
         assertThat(result.getTeamBonus(), equalTo("Relics generate +33% gold"));
     }
+
+    @Test
+    @Order(2)
+    @DisplayName("Civilização não encontrado")
+    public void testNotFoundFindCivilization() throws Exception {
+        WireMock.stubFor(WireMock.get(baseUrlClient + "/civilization/1").willReturn(WireMock.aResponse().withStatus(404)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(ResourceUtils.getContentFile(listCivilizationsNotFound))));
+
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/33"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
+    }
 }
