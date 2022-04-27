@@ -7,8 +7,6 @@ import com.matheuscordeiro.bffageofempiresapi.clients.response.CivilizationClien
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 public class AgeOfEmpiresClientImpl implements AgeOfEmpiresClient {
@@ -17,5 +15,10 @@ public class AgeOfEmpiresClientImpl implements AgeOfEmpiresClient {
     @Override
     public CivilizationClientResponseList findCivilizations() {
         return ageOfEmpiresApi.listCivilizations().getBody();
+    }
+
+    @Override
+    public CivilizationClientResponse findCivilizationById(Long id) {
+        return ageOfEmpiresApi.getCivilizationById(id);
     }
 }
