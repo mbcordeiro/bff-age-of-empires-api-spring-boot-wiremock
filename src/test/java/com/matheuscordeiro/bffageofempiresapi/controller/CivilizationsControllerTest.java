@@ -81,19 +81,6 @@ public class CivilizationsControllerTest {
 
     @Test
     @Order(2)
-    @DisplayName("Civilização não encontrado")
-    public void testNotFoundFindCivilizations() throws Exception {
-        WireMock.stubFor(WireMock.get(baseUrlClient + "/civilization")
-                .willReturn(WireMock.aResponse().withStatus(404)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody(ResourceUtils.getContentFile(listCivilizationsNotFound))));
-
-        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/civilization"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
-    }
-
-    @Test
-    @Order(3)
     @DisplayName("Efetuando a busca de uma civilização por id")
     public void testFindCivilizationById() throws Exception {
         WireMock.stubFor(WireMock.get(baseUrlClient + "/civilization/1")
@@ -115,7 +102,7 @@ public class CivilizationsControllerTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     @DisplayName("Civilização não encontrado")
     public void testNotFoundFindCivilization() throws Exception {
         WireMock.stubFor(WireMock.get(baseUrlClient + "/civilization/1").willReturn(WireMock.aResponse().withStatus(404)

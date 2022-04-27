@@ -35,8 +35,8 @@ public class CivilizationServiceTest {
 
     @Test
     @Order(1)
-    @DisplayName("1 - Executando o Service com a orquestração das chamadas de API Age of empires")
-    public void testFindCivilization() {
+    @DisplayName("Executando o Service com a orquestração das chamadas de API Age of empires")
+    public void testFindCivilizations() {
         WireMock.stubFor(WireMock
                 .get(baseUrlClient + "/civilizations")
                 .willReturn(WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
@@ -50,6 +50,23 @@ public class CivilizationServiceTest {
         assertThat(result.get(0).getName(), equalTo("Aztecs"));
         assertThat(result.get(0).getArmyType(), equalTo("Infantry and Monk"));
         assertThat(result.get(0).getTeamBonus(), equalTo("Relics generate +33% gold"));
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("Executando o Service com a orquestração das chamadas de API Age of empires by id")
+    public void testFindCivilizationById() {
+        WireMock.stubFor(WireMock
+                .get(baseUrlClient + "/civilization/1")
+                .willReturn(WireMock.aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+                        .withBody(ResourceUtils.getContentFile(listCivilizationsOK))));
+
+        final var result = service.getCivilizationById(1L);
+
+        assertThat(result.getId(), equalTo(1L));
+        assertThat(result.getName(), equalTo("Aztecs"));
+        assertThat(result.getArmyType(), equalTo("Infantry and Monk"));
+        assertThat(result.getTeamBonus(), equalTo("Relics generate +33% gold"));
     }
 
 }
