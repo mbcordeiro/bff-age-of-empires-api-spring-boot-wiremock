@@ -35,6 +35,9 @@ public class AgeOfEmpiresClientTest {
     @Value("classpath:json/civilization_OK.json")
     private Resource civilizationOK;
 
+    @Value("classpath:json/civilization_NOT_FOUND.json")
+    private Resource civilizationNotFound;
+
     @Value("${client.url}")
     private String baseUrlClient;
 
@@ -88,9 +91,9 @@ public class AgeOfEmpiresClientTest {
     @DisplayName("Retornando um erro Not Found do Client da API")
     public void testGetCivilizationNotFound() {
         WireMock.stubFor(WireMock
-                .get(baseUrlClient + "/civilization/1")
+                .get(baseUrlClient + "/civilization/33")
                 .willReturn(WireMock.aResponse().withStatus(404).withHeader("Content-Type", "application/json")
-                        .withBody(ResourceUtils.getContentFile(listCivilizationsNotFound))));
+                        .withBody(ResourceUtils.getContentFile(civilizationNotFound))));
 
         assertThrows(FeignException.NotFound.class, () -> {
             ageOfEmpiresClient.findCivilizationById(33L);
