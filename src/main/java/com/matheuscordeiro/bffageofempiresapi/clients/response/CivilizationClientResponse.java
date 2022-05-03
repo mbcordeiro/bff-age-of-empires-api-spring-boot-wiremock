@@ -1,7 +1,7 @@
 package com.matheuscordeiro.bffageofempiresapi.clients.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @Validated
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CivilizationClientResponse {
     @JsonProperty("id")
     private Long id;
