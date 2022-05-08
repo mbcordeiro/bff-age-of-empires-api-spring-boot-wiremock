@@ -23,6 +23,7 @@ dependencies {
 	implementation 'javax.validation:validation-api'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5'
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
