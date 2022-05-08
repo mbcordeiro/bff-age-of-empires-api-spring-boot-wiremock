@@ -12,27 +12,12 @@ import java.util.List;
 @Validated
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CivilizationClientResponse {
-    @JsonProperty("id")
     private Long id;
-
-    @JsonProperty("name")
     private String name;
-
-    @JsonProperty("expansion")
     private String expansion;
-
-    @JsonProperty("army_type")
     private String armyType;
-
-    @JsonProperty("unique_unit")
     private List<String> uniqueUnit;
-
-    @JsonProperty("unique_tech")
     private List<String> uniqueTech;
-
-    @JsonProperty("team_bonus")
     private String teamBonus;
-
-    @JsonProperty("civilization_bonus")
     private List<String> civilizationBonus;
 }
