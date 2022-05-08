@@ -1,9 +1,9 @@
 package com.matheuscordeiro.bffageofempiresapi.clients.utils;
 
+import org.springframework.core.io.Resource;
+
 import java.io.IOException;
 import java.nio.file.Files;
-
-import org.springframework.core.io.Resource;
 
 public class ResourceUtils {
 
