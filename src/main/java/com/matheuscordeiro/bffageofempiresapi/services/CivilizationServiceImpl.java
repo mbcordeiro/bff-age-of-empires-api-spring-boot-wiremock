@@ -6,6 +6,7 @@ import com.matheuscordeiro.bffageofempiresapi.exception.NotFoundException;
 import com.matheuscordeiro.bffageofempiresapi.mapper.CivilizationMapper;
 import com.matheuscordeiro.bffageofempiresapi.services.interfaces.CivilizationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class CivilizationServiceImpl implements CivilizationService {
 
     private final CivilizationMapper civilizationMapper;
 
+    @Cacheable("civilizations")
     @Override
     public List<CivilizationResponse> getCivilizations() {
         try {
@@ -28,6 +30,7 @@ public class CivilizationServiceImpl implements CivilizationService {
         }
     }
 
+    @Cacheable("civilizations")
     @Override
     public CivilizationResponse getCivilizationById(Long id) {
         try {
